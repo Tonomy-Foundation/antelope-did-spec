@@ -90,7 +90,7 @@ The growing SSI ecosystem is being adopted by industry and governments alike. De
 
 The Antelope account abstraction is unique within the blockchain industry. There are two features relevant for a DID method:
 1. Account names are not bound to cryptographic material. Accounts names are chosen by the creator of the account, which may or may not be the entity that controls the account. Account names are short strings up to 13 characters making them memorisable.
-2. Each account can have one or more public-private key pairs which can be used to authorise and assert data about that account. Keys are organised in a hierarchy tree, with human friendly labels for the permission name. Key material can be delegated to another Antelope account. A weighted multi-signature scheme can be used. See [combination.antelope.json](https://github.com/Gimly-Blockchain/antelope-did-spec/blob/master/examples/combination.antelope.json) for an example of a typical Antelope account's key structure that includes both delegated and multi-signature requirements in the hierarchical tree.
+2. Each account can have one or more public-private key pairs which can be used to authorise and assert data about that account. Keys are organised in a hierarchy tree, with human friendly labels for the permission name. Key material can be delegated to another Antelope account. A weighted multi-signature scheme can be used. See [combination.antelope.json](https://github.com/Tonomy-Foundation/antelope-did-spec/blob/master/examples/combination.antelope.json) for an example of a typical Antelope account's key structure that includes both delegated and multi-signature requirements in the hierarchical tree.
 
 This key material and structure needs to be expressed in the "verificationMethod" property of the Antelope DID Document. Numerous conversations have and are still taking place to create a DID compatible method spec. The result of this has been to create a new [verification method](https://w3c.github.io/did-core/#verification-methods) type called [Verifiable Conditions](https://github.com/w3c-ccg/verifiable-conditions) which has been drafted and is being reviewed by the W3C Credentials Community Group.
 
@@ -147,7 +147,7 @@ did:antelope:{chain_id/registered_chain_name}:{account-name}
 Due to the strict requirements registered chain names have to adhere to, a clash with the chain id schema is impossible.
 
 These are the properties that make up an Antelope DID:
-- `{registered_antelope_name}` is a pre-registered name of the Antelope chain consisting of one or more colon separated name blocks, each complying to the [Antelope account name type](https://developers.eos.io/welcome/latest/protocol-guides/accounts_and_permissions/#21-account-schema) (one to thirteen lowercase English characters a-z, period . or digits 1-5). This should be registered in the below table and additionally in the [Antelope DID chain method json registry](https://github.com/Gimly-Blockchain/antelope-did-resolver/blob/master/src/antelope-did-chain-registry.json), including at least one service.
+- `{registered_antelope_name}` is a pre-registered name of the Antelope chain consisting of one or more colon separated name blocks, each complying to the [Antelope account name type](https://developers.eos.io/welcome/latest/protocol-guides/accounts_and_permissions/#21-account-schema) (one to thirteen lowercase English characters a-z, period . or digits 1-5). This should be registered in the below table and additionally in the [Antelope DID chain method json registry](https://github.com/Tonomy-Foundation/antelope-did-resolver/blob/master/src/antelope-did-chain-registry.json), including at least one service.
 - `{account_name}` is the name of the account on the chain, also of [Antelope account name type](https://developers.eos.io/welcome/latest/protocol-guides/accounts_and_permissions/#21-account-schema) type.
 - `{chain_id}` is the hash of the genesis block of the chain, expressed in a 64 character string representing a hexadecimal number.
 
@@ -322,7 +322,7 @@ Consumers of the Antelope DID Method implementation are RECOMMENDED to extend th
 
 At least one service SHOULD exist on a DID Document of LinkedDomains type. This can be used to resolve the DID and connect to the Antelope chain through a supported API.
 
-Registered Antelope chain names should add at least one service in the [Antelope DID chain method json registry](https://github.com/Gimly-Blockchain/antelope-did-resolver/blob/master/src/antelope-did-chain-registry.json).
+Registered Antelope chain names should add at least one service in the [Antelope DID chain method json registry](https://github.com/Tonomy-Foundation/antelope-did-resolver/blob/master/src/antelope-did-chain-registry.json).
 
 ```json
 {
@@ -339,7 +339,7 @@ Registered Antelope chain names should add at least one service in the [Antelope
 }
 ```
 
-See the [Antelope DID chain method json registry](https://github.com/Gimly-Blockchain/antelope-did-resolver/blob/master/src/antelope-did-chain-registry.json) for more examples.
+See the [Antelope DID chain method json registry](https://github.com/Tonomy-Foundation/antelope-did-resolver/blob/master/src/antelope-did-chain-registry.json) for more examples.
 
 ## 4.7 Example DID Document
 
@@ -620,6 +620,6 @@ Private blockchains me support the ability for DID users to control exclusion of
 
 | Name | Language | Package | Repository |
 | --- | --- | --- | --- |
-| DID Resolver | Javascript | [npm package](https://www.npmjs.com/package/antelope-did-resolver) | [https://github.com/Gimly-Blockchain/antelope-did-resolver](https://github.com/Gimly-Blockchain/antelope-did-resolver) |
-| DID Operations (CRUD) | Javascript |  [npm package](https://www.npmjs.com/package/antelope-did) | [https://github.com/Gimly-Blockchain/antelope-did](https://github.com/Gimly-Blockchain/antelope-did) |
-| Universal Resolver Driver | Docker | [Docker Hub](https://hub.docker.com/r/gimlyblockchain/antelope-universal-resolver-driver) | [https://github.com/Gimly-Blockchain/antelope-did-universal-resolver-driver](https://github.com/Gimly-Blockchain/antelope-did-universal-resolver-driver) |
+| DID Resolver | Javascript | [npm package](https://www.npmjs.com/package/antelope-did-resolver) | [https://github.com/Tonomy-Foundation/antelope-did-resolver](https://github.com/Tonomy-Foundation/antelope-did-resolver) |
+| DID Operations (CRUD) | Javascript |  [npm package](https://www.npmjs.com/package/antelope-did) | [https://github.com/Tonomy-Foundation/antelope-did](https://github.com/Tonomy-Foundation/antelope-did) |
+| Universal Resolver Driver | Docker | [Docker Hub](https://hub.docker.com/r/gimlyblockchain/antelope-universal-resolver-driver) | [https://github.com/Tonomy-Foundation/antelope-did-universal-resolver-driver](https://github.com/Tonomy-Foundation/antelope-did-universal-resolver-driver) |
