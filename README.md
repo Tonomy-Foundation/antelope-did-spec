@@ -1,5 +1,6 @@
 
 # Status of This Document
+
 This document is not a W3C Standard nor is it on the W3C Standards Track. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.
 
 # Contributions
@@ -11,6 +12,7 @@ The Antelope Identity Working Group is an open working group where we, the Antel
 Comments regarding this document are welcome. Please file issues and PRs directly on Github. Contributors are recognized through adding commits to the code base.
 
 Contributors:
+
 - Jack Tanner <jack@gimly.io>
 - Jonas Walter
 - Julius Rahaus
@@ -24,7 +26,7 @@ Contributors:
 ![](./assets/filler.png)
 [![Block One](./assets/blockone.png)](https://block.one)
 ![](./assets/filler.png)
-[![EOS Costa Rica](./assets/eoscr.png)](https://antelope.cr)
+[![EOS Costa Rica](./assets/eoscr.png)](https://eosio.cr)
 
 # Contents
 
@@ -40,23 +42,28 @@ Contributors:
 # 1. Introduction
 
 ## 1.1 Self Sovereign Identity (SSI)
+
 Self sovereign identity is an evolving Internet architecture for how applications store and process identity data.  It is driven by the need for data privacy over personal information.
 
 The architecture has two layers:
+
 1. Identity - the management of accessible public key infrastructure and identifies. [Decentralized Identifiers](https://w3c.github.io/did-core) is the W3C standard that allows this. Compliance with this standard allows application layers to interoperate without a need to understand the base layer decentralised protocols that power identities.
 2. Application - use of the identity layer to interact and provide meaningful, secure and verifiable data communications and interaction. The [Verifiable Credentials](https://w3c.github.io/vc-data-model) W3C standard is the most prominent and adopted standard here which is a data structure and message protocol allowing people and organisations to securely and in a verifiable way send and verify information about themselves "credentials" to each other. [DIDComm](https://identity.foundation/didcomm-messaging/spec) is another important application layer that uses DID methods to communicate between SSI identities.
 
 On top of the application layer, use cases in industry can be built which are then interoperable and independent of base protocols. The standards focused heavily on data privacy and security.
 
 More information:
+
 - [SSI Architecture Stack and Community Efforts](https://github.com/decentralized-identity/decentralized-identity.github.io/blob/master/assets/ssi-architectural-stack--and--community-efforts-overview.pdf)
 - [Self Sovereign Identity](https://www.identitymanagementinstitute.org/self-sovereign-identity)
 - [Self-Sovereign Identity: The Ultimate Beginners Guide!](https://tykn.tech/self-sovereign-identity)
 
 ## 1.2 Decentralized Identifiers
+
 [Decentralized Identifiers](https://w3c.github.io/did-core) (DIDs) provide a standard data model to encapsulating unique identifiers and cryptographic material that can be used to interact, verify information from and contact entities. Each decentralised data layer protocol (such as Antelope, Bitcoin, Hyperledger Indy) creates a DID Method Specification (not a W3C standard) which complies to the DID-core W3C standard. This DID Method Specification describes the compliance data model used by the data protocol to encapsulate a unique identifier and the cryptographic material.
 
 ## 1.3 Antelope
+
 The Antelope blockchain platform is the next-generation, open-source platform with industry-leading transaction speed and a flexible utility. As a blockchain platform, Antelope is designed for enterprise-grade use cases and built for both public and private blockchain deployments. Antelope is customizable to suit a wide range of business needs across industries with role-based permissions system and secure application transactions processing.
 
 Building distributed applications on Antelope follows familiar development patterns and programming languages used for developing non-blockchain applications. For application developers, familiarity with the development environment results in a seamless user experience as it allows developers to use their preferred development tools.
@@ -64,6 +71,7 @@ Building distributed applications on Antelope follows familiar development patte
 The Antelope platform provides functionalities such as accounts, authentication, databases, asynchronous communication, and the scheduling of applications across multiple CPU cores and clusters. These functionalities are also common in non-blockchain software development environments.
 
 Some of the groundbreaking features of Antelope include:
+
 1. WebAssembly C++ Compilation
 2. High Throughput and Low Latency (0.5s block time)
 3. Customizable Resource Model
@@ -78,9 +86,10 @@ Some of the groundbreaking features of Antelope include:
 
 ## 1.4 Motivation and rationale
 
-The Antelope technology ecosystem has been adopted by approximately 20 public blockchain is and over 100 private blockchains ([source](https://github.com/antelope-ecosystem/chains)). This includes a wide variety of industry applications.
+The EOSIO technology ecosystem has been adopted by approximately 20 public blockchain is and over 100 private blockchains ([source](https://github.com/eosio-ecosystem/chains)). This includes a wide variety of industry applications.
 
 The growing SSI ecosystem is being adopted by industry and governments alike. Decentralised identifiers are the key layer in the SSI tech stack to be included in this ecosystem. Antelope presents a number of unique advantages for managing self sovereign identity solutions, including its account and key structure and highly flexible governance features. This DID Method Specification allows Antelope to enter this ecosystem through compliance with the standards, bringing the following benefits:
+
 1. Interoperability with the rest of the SSI ecosystem. This allows Antelope based identities to be consumed by governments and industries alike. It provides external interoperability outside of Antelope.
 2. Interoperability with other Antelope based identities. Due to the large number of Antelope chains this could be a great way to strengthen the collaboration between all of these projects.
 3. Provide transparency of identities through standardisation.
@@ -89,12 +98,14 @@ The growing SSI ecosystem is being adopted by industry and governments alike. De
 ## 1.5 Antelope accounts
 
 The Antelope account abstraction is unique within the blockchain industry. There are two features relevant for a DID method:
+
 1. Account names are not bound to cryptographic material. Accounts names are chosen by the creator of the account, which may or may not be the entity that controls the account. Account names are short strings up to 13 characters making them memorisable.
 2. Each account can have one or more public-private key pairs which can be used to authorise and assert data about that account. Keys are organised in a hierarchy tree, with human friendly labels for the permission name. Key material can be delegated to another Antelope account. A weighted multi-signature scheme can be used. See [combination.antelope.json](https://github.com/Tonomy-Foundation/antelope-did-spec/blob/master/examples/combination.antelope.json) for an example of a typical Antelope account's key structure that includes both delegated and multi-signature requirements in the hierarchical tree.
 
 This key material and structure needs to be expressed in the "verificationMethod" property of the Antelope DID Document. Numerous conversations have and are still taking place to create a DID compatible method spec. The result of this has been to create a new [verification method](https://w3c.github.io/did-core/#verification-methods) type called [Verifiable Conditions](https://github.com/w3c-ccg/verifiable-conditions) which has been drafted and is being reviewed by the W3C Credentials Community Group.
 
 More information:
+
 - [Antelope Accounts and Permissions](https://developers.eos.io/welcome/latest/protocol-guides/accounts_and_permissions)
 - [DID core issue 963: Support for threshold multi-sig verificationMethod](https://github.com/w3c/did-core/issues/693)
 - [DID core issue 964: Support for delegated verificationMethods](https://github.com/w3c/did-core/issues/694)
@@ -115,6 +126,7 @@ To achieve the design goals, the Antelope DID method specification implementatio
 In practice, this means that the DID implementations should be imported and the DID create, update and deactivate functions should be overloaded as needed for the Antelope blockchain. This should be done instead of forking the implementations to create more modular software and reduce upstream dependency mismatch issues.
 
 More information:
+
 - [Antelope Consensus Protocol](https://developers.eos.io/welcome/latest/protocol-guides/consensus_protocol
 )
 - [DID core - multisig and delegated use case](https://docs.google.com/presentation/d/1vrmdOnN1tiE54e8h7HyegkJUGyrBUITVFNsAVedUwTE)
@@ -126,6 +138,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 # 2. Design goals
 
 The design goals of the Antelope DID Method Specification are to:
+
 1. Create a method spec that can be used for all blockchain powered by the unmodified Antelope protocol. Blockchains that have modified the Antelope protocol are not explicitly supported, but may still be compatible and use this method spec if there have not been any incompatible changes to the Antelope protocol such as the account, permissions and key features.
 2. Support all relevant and non-depreciated features of Antelope from version 2.0 (time weight permissions are not supported).
 3. Support public (EOS, Telos, Europechain, WAX and more), private and hybrid permission Antelope blockchains.
@@ -135,6 +148,7 @@ The design goals of the Antelope DID Method Specification are to:
 # 3. DID Method Schema: did:antelope
 
 The Antelope [method-specific DID schema](https://w3c.github.io/did-core/#methods) allows for two distinct method-specific-id schemata.
+
 1. Registered chain name schema
 2. Chain-id schema
 
@@ -147,6 +161,7 @@ did:antelope:{chain_id/registered_chain_name}:{account-name}
 Due to the strict requirements registered chain names have to adhere to, a clash with the chain id schema is impossible.
 
 These are the properties that make up an Antelope DID:
+
 - `{registered_antelope_name}` is a pre-registered name of the Antelope chain consisting of one or more colon separated name blocks, each complying to the [Antelope account name type](https://developers.eos.io/welcome/latest/protocol-guides/accounts_and_permissions/#21-account-schema) (one to thirteen lowercase English characters a-z, period . or digits 1-5). This should be registered in the below table and additionally in the [Antelope DID chain method json registry](https://github.com/Tonomy-Foundation/antelope-did-resolver/blob/master/src/antelope-did-chain-registry.json), including at least one service.
 - `{account_name}` is the name of the account on the chain, also of [Antelope account name type](https://developers.eos.io/welcome/latest/protocol-guides/accounts_and_permissions/#21-account-schema) type.
 - `{chain_id}` is the hash of the genesis block of the chain, expressed in a 64 character string representing a hexadecimal number.
@@ -166,8 +181,6 @@ e.g. `did:antelope:telos:example`
 Each chain name may consist of multiple name blocks, separated by colons. This could be used to represent hierarchical relationships as in domains and subdomains.
 
 e.g. `did:antelope:eos:testnet:jungle:example`
-
-
 
 Registered Antelope chain summary:
 
@@ -256,6 +269,7 @@ The verification Methods are populated using information from the Antelope accou
 This permission data is presented in the DID document using the draft ["VerifiableCondition"](https://github.com/w3c-ccg/verifiable-conditions) type. This new verification type is a current work item by the W3C credentials community group and is expected to become a W3C standard.
 
 ### 4.4.1 Account permissions
+
 If the account permission contains a threshold greater than one with one or more keys/delegations with a weight of more than one, then the verification condition MUST use a "conditionWeightedThreshold" property as seen in example [5.1.2 Multi-sig delegated account](#512-multi-sig-delegated-account).
 
 If the account permission contains a threshold greater than one and all weights are 1, then the verification condition MAY use the "conditionThreshold" property instead of "conditionWeightedThreshold".
@@ -278,6 +292,7 @@ Antelope uses several key types for authorization. The public key is stored on c
 | PUB_WA_ | JsonWebKey2020 | publicKeyJwk with "crv" = "P-256" |
 
 K1 key types MUST use the official [EcdsaSecp256k1VerificationKey2019](https://w3c-ccg.github.io/lds-ecdsa-secp256k1-2019) material type. The key material MUST be represented with in a Json Web Key with the "publicKeyJwk" property.Example:
+
 ```js
 {
     "id": "did:antelope:telos:example#active-1",
@@ -293,6 +308,7 @@ K1 key types MUST use the official [EcdsaSecp256k1VerificationKey2019](https://w
 ```
 
 The R1 and WA key types both use the [Secp256r1](https://neuromancer.sk/std/secg/secp256r1) (sometimes referred to as P-256) elliptic curve. It is similar to the Secp256k1 curve as explained [here](https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves).  The R1 and WA key types MUST use the official [JsonWebKey2020](https://w3c.github.io/did-spec-registries/#jsonwebkey2020) material type. The key material MUST be represented with in a Json Web Key with the "publicKeyJwk" property. Example:
+
 ```js
 {
     "id": "did:antelope:telos:example#active-1",
@@ -306,8 +322,11 @@ The R1 and WA key types both use the [Secp256r1](https://neuromancer.sk/std/secg
     }
 }
 ```
+
 antelope
+
 ### 4.4.3 Delegations
+
 If an account permission delegates to another account, a verification method of type ["VerifiableCondition"](https://github.com/w3c-ccg/verifiable-conditions) MUST be used with the "conditionDelegated" property set to the DID URL of the other Antelope account's verification method corresponding to the delegated permission.
 
 An example is seen in [5.1.1 Simple account](#511-simple-account).
@@ -344,6 +363,7 @@ See the [Antelope DID chain method json registry](https://github.com/Tonomy-Foun
 ## 4.7 Example DID Document
 
 ### 4.7.1 Simple account
+
 ```json
 {
     "@context": ["https://www.w3.org/ns/did/v1",
@@ -389,6 +409,7 @@ See the [Antelope DID chain method json registry](https://github.com/Tonomy-Foun
 ```
 
 ### 4.7.2 Multi-sig delegated account
+
 ```json
 {
     "@context": ["https://www.w3.org/ns/did/v1",
@@ -496,8 +517,8 @@ Consumers of a Antelope DID Method implementation SHOULD override the default up
 
 # 6. Security considerations
 
-
 ## 6.1 Eavesdropping
+
 For public Antelope blockchains, all transactions, history and stateful information is public.
 
 For private and hybrid Antelope blockchains, access to the data via API or P2P protocol are limited and permission based depending on the blockchain. Private Antelope blockchains SHOULD use encrypted data transport between clients and nodes.
@@ -539,6 +560,7 @@ All Antelope DID method default operations are done through an on-chain transact
 The ability to limit the service of an Antelope blockchain depends on its infrastructure, governance structure and server API figuration. DID controllers and subjects should be aware of these fundamentals to assess the security of the system.
 
 ### 6.7.1 Infrastructure
+
 Infrastructure can be centralised or decentralised.
 
 Blockchains can be configured to have multiple independent organisations that run Antelope peer nodes. More independence block producers running infrastructure increases infrastructure availability reducing service outages and reduces governance attacks (discussed next).
@@ -546,9 +568,11 @@ Blockchains can be configured to have multiple independent organisations that ru
 Each node can also be configured to have redundancy capacity through the blockvault_client_plugin. This can be used for centralised blockchains, or for individual block producers in a centralised blockchain.
 
 ### 6.7.2 Governance of the blockchain service
+
 The Antelope protocol and DID method is governance agnostic. Antelope blockchains can be Proof of Authority (default), Proof of Stake, Delegated Proof of Stake and more ([source](https://github.com/theblockstalk/antelope-contracts/tree/master/governance)) modifying the system contract.
 
 An Antelope blockchain can be attacked by vulnerabilities in the governance model. Examples:
+
 - block producers that run a Proof of Authority blockchain may be bribed
 - block producers slots for a Proof of Stake blockchain can be bought
 - block producers slots for a Delegated Proof of Stake blockchain can be bought
@@ -564,12 +588,15 @@ Each Antelope chain implements what accounts are privileged and what privileged 
 By bypassing signature validation checks, privileged accounts can submit transactions on behalf of any other account on the same Antelope blockchain. This includes updating the DID Document. It is for this reason that the governance of the Antelope chain must be trusted.
 
 ### 6.7.4 API
+
 If an API service fails completely, a DID will need to find another service to connect to the Antelope blockchain.
 
 ## 6.8 Residual Risks
+
 The system's overall security and integrity can only be as good as the DID controller's ability to manage private keys. This is made easier with the ability for wallets to create hierarchies of keys and complex structures. This is still a difficult problem for organizations and people.
 
 # 7. Privacy considerations
+
 ## 7.1 Surveillance
 
 In a public Antelope network, all communication is visible by watching the blockchain. In a private network both the peer-to-peer and the node to client communication should be encrypted to ensure data surveillance protection.
