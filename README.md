@@ -16,7 +16,7 @@ Contributors:
 - Andres Gomez Ramirez | EOS Costa Rica
 
 <!-- Make sure images have 75 pixel height -->
-[![Tonomy Foundation](./assets/tonomy.jpg)](https://tonomy.foundation)
+[![Tonomy Foundation](./assets/tonomy.png)](https://tonomy.foundation)
 [![Gimly](./assets/gimly.jpg)](https://gimly.io)
 ![](./assets/filler.png)
 [![Europechain](./assets/europechain.png)](https://europechain.io)
