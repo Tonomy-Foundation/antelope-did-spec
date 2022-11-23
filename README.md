@@ -9,7 +9,7 @@ Comments regarding this document are welcome. Please file issues and PRs directl
 
 Contributors:
 
-- Jack Tanner <jack@gimly.io>
+- Jack Tanner | Tonomy Foundation
 - Jonas Walter
 - Julius Rahaus
 - Sana Rauf | Block One
