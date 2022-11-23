@@ -5,10 +5,6 @@ This document is not a W3C Standard nor is it on the W3C Standards Track. This i
 
 # Contributions
 
-The Antelope Identity Working Group is an open working group where we, the Antelope community, discuss identity on Antelope chains and progress work such as this DID specification and it's implementation. We have a weekly meeting and a Slack channel.
-
-**[Join the Antelope Identity Working Group](https://www.gimly.io/antelope-identity)**
-
 Comments regarding this document are welcome. Please file issues and PRs directly on Github. Contributors are recognized through adding commits to the code base.
 
 Contributors:
@@ -20,6 +16,7 @@ Contributors:
 - Andres Gomez Ramirez | EOS Costa Rica
 
 <!-- Make sure images have 75 pixel height -->
+[![Tonomy Foundation](./assets/tonomy.jpg)](https://tonomy.foundation)
 [![Gimly](./assets/gimly.jpg)](https://gimly.io)
 ![](./assets/filler.png)
 [![Europechain](./assets/europechain.png)](https://europechain.io)
@@ -102,7 +99,7 @@ The Antelope account abstraction is unique within the blockchain industry. There
 1. Account names are not bound to cryptographic material. Accounts names are chosen by the creator of the account, which may or may not be the entity that controls the account. Account names are short strings up to 13 characters making them memorisable.
 2. Each account can have one or more public-private key pairs which can be used to authorise and assert data about that account. Keys are organised in a hierarchy tree, with human friendly labels for the permission name. Key material can be delegated to another Antelope account. A weighted multi-signature scheme can be used. See [combination.antelope.json](https://github.com/Tonomy-Foundation/antelope-did-spec/blob/master/examples/combination.antelope.json) for an example of a typical Antelope account's key structure that includes both delegated and multi-signature requirements in the hierarchical tree.
 
-This key material and structure needs to be expressed in the "verificationMethod" property of the Antelope DID Document. Numerous conversations have and are still taking place to create a DID compatible method spec. The result of this has been to create a new [verification method](https://w3c.github.io/did-core/#verification-methods) type called [Verifiable Conditions](https://github.com/w3c-ccg/verifiable-conditions) which has been drafted and is being reviewed by the W3C Credentials Community Group.
+This key material and structure needs to be expressed in the "verificationMethod" property of the Antelope DID Document. Numerous conversations have and are still taking place to create a DID compatible method spec. The result of this has been to create a new [verification method](https://w3c.github.io/did-core/#verification-methods) type called [Conditional Proofs](https://github.com/w3c-ccg/verifiable-conditions) which has been drafted and is being reviewed by the W3C Credentials Community Group.
 
 More information:
 
@@ -111,7 +108,7 @@ More information:
 - [DID core issue 964: Support for delegated verificationMethods](https://github.com/w3c/did-core/issues/694)
 - [DID core issue 965: Support for combination of threshold multi-sig and delegated verificationMethod](https://github.com/w3c/did-core/issues/695)
 - [DID core - multisig and delegated use case](https://docs.google.com/presentation/d/1vrmdOnN1tiE54e8h7HyegkJUGyrBUITVFNsAVedUwTE)
-- [Verifiable Conditions](https://docs.google.com/document/d/1hxEMQxfNuB6Elmd6V-9bEt0kZqSx-DULycn6CjOpMYs/edit)
+- [Conditional Proofs (formerly Verifiable Conditions)](https://docs.google.com/document/d/1hxEMQxfNuB6Elmd6V-9bEt0kZqSx-DULycn6CjOpMYs/edit)
 
 ## 1.6 Antelope protocol and governance layers
 
@@ -266,7 +263,7 @@ Information regarding antelope top level permission will be included inside the 
 
 The verification Methods are populated using information from the Antelope account's permission structure. This can be obtained by requesting the accounts data from any of the API services using the nodeos `get_account` API call.
 
-This permission data is presented in the DID document using the draft ["VerifiableCondition"](https://github.com/w3c-ccg/verifiable-conditions) type. This new verification type is a current work item by the W3C credentials community group and is expected to become a W3C standard.
+This permission data is presented in the DID document using the draft ["ConditionalProof2022"](https://github.com/w3c-ccg/verifiable-conditions) type. This new verification type is a current work item by the W3C credentials community group and is expected to become a W3C standard.
 
 ### 4.4.1 Account permissions
 
@@ -275,6 +272,8 @@ If the account permission contains a threshold greater than one with one or more
 If the account permission contains a threshold greater than one and all weights are 1, then the verification condition MAY use the "conditionThreshold" property instead of "conditionWeightedThreshold".
 
 If the account permission contains a threshold of 1 with more than one key/delegation, then the verification condition MAY use "conditionOr" property instead of "conditionThreshold". An example is seen in [5.1.1 Simple account](#511-simple-account).
+
+If the account permission contains a threshold of 1 with only one keys, then the verification condition MAY use a key type instead of using the ConditionalProof2022 type. If this is done, it MUST use the "EcdsaSecp256k1VerificationKey2019" or "JsonWebKey2020" verification method type as described below in [#4.4.2 Keys](#442-keys).
 
 If the account permission contains a threshold of 1 with only one delegation and no keys, then the verification condition MAY use "conditionDelegated" property instead of "conditionDelegated".
 
@@ -327,7 +326,7 @@ antelope
 
 ### 4.4.3 Delegations
 
-If an account permission delegates to another account, a verification method of type ["VerifiableCondition"](https://github.com/w3c-ccg/verifiable-conditions) MUST be used with the "conditionDelegated" property set to the DID URL of the other Antelope account's verification method corresponding to the delegated permission.
+If an account permission delegates to another account, a verification method of type ["ConditionalProof2022"](https://github.com/w3c-ccg/verifiable-conditions) MUST be used with the "conditionDelegated" property set to the DID URL of the other Antelope account's verification method corresponding to the delegated permission.
 
 An example is seen in [5.1.1 Simple account](#511-simple-account).
 
@@ -372,7 +371,7 @@ See the [Antelope DID chain method json registry](https://github.com/Tonomy-Foun
     "verificationMethod": [{
         "id": "did:antelope:telos:example#owner",
         "controller": "did:antelope:telos:example",
-        "type": "VerifiableCondition2021",
+        "type": "ConditionalProof2022",
         "conditionOr": [
             {
                 "id": "did:antelope:telos:example#active-1",
@@ -389,7 +388,7 @@ See the [Antelope DID chain method json registry](https://github.com/Tonomy-Foun
     }, {
         "id": "did:antelope:telos:example#active",
         "controller": "did:antelope:telos:example",
-        "type": "VerifiableCondition2021",
+        "type": "ConditionalProof2022",
         "conditionOr": [
             {
                 "id": "did:antelope:telos:example#active-1",
@@ -418,7 +417,7 @@ See the [Antelope DID chain method json registry](https://github.com/Tonomy-Foun
     "verificationMethod": [{
         "id": "did:antelope:telos:example#owner",
         "controller": "did:antelope:telos:example",
-        "type": "VerifiableCondition2021",
+        "type": "ConditionalProof2022",
         "threshold": 3,
         "conditionWeightedThreshold": [{
                 "weight": 1,
@@ -451,7 +450,7 @@ See the [Antelope DID chain method json registry](https://github.com/Tonomy-Foun
                 "condition": {
                     "id": "did:antelope:telos:example#owner-2",
                     "controller": "did:antelope:telos:example",
-                    "type": "VerifiableCondition2021",
+                    "type": "ConditionalProof2022",
                     "conditionDelegated": "did:antelope:telos:example2#active"
                 }
             }
@@ -459,7 +458,7 @@ See the [Antelope DID chain method json registry](https://github.com/Tonomy-Foun
     }, {
         "id": "did:antelope:telos:example#active",
         "controller": "did:antelope:telos:example",
-        "type": "VerifiableCondition2021",
+        "type": "ConditionalProof2022",
         "relationshipParent": "did:antelope:telos:example#owner",
         "threshold": 1,
         "conditionWeightedThreshold": [{
