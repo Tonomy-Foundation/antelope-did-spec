@@ -5,11 +5,12 @@ This document is not a W3C Standard nor is it on the W3C Standards Track. This i
 
 # Contributions
 
-Comments regarding this document are welcome. Please file issues and PRs directly on Github. Contributors are recognized through adding commits to the code base.
+The Antelope DID method specification is a fork from the EOSIO DID method specification (Copyright 2021 Gimly B.V.) following the name change of the EOSIO blockchain platform into the Antelope blockchain platform. The name change to Antelope DID and further maintenance and development are now lead by Tonomy Foundation. Comments regarding this document are welcome. Please file issues and PRs directly on Github. Contributors are recognized through adding commits to the code base.
 
 Contributors:
 
 - Jack Tanner | Tonomy Foundation
+- Caspar Roelofs | Gimly B.V.
 - Jonas Walter
 - Julius Rahaus
 - Sana Rauf | Block One
